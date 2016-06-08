@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "CCHomeController.h"
+#import <AddressBook/AddressBook.h>
 
 @interface AppDelegate ()
 
@@ -25,10 +26,30 @@
     nav.hidesBottomBarWhenPushed = YES;
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-    
-    
+
     //2. 移除webview cache
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    //3. 授权获取通讯录权限
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=6.0) {
+        //1)获取授权状态
+        ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+        //2)创建AddressBook
+        ABAddressBookRef ref = ABAddressBookCreateWithOptions(NULL,NULL);
+        //3)没有授权就授权
+        if (status == kABAuthorizationStatusNotDetermined) {
+            ABAddressBookRequestAccessWithCompletion(ref, ^(bool granted, CFErrorRef error) {
+                if (error) {  //判断是否出错
+                    return;
+                }
+                if (granted) { //判断是否授权
+                    NSLog(@"已经授权");
+                    CFRelease(ref);
+                }
+            });
+        }
+        CFRelease(ref);
+    }
     
     return YES;
 }
