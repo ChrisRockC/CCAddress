@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CCHomeController.h
 //  Address
 //
 //  Created by CC on 16/6/8.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CCHomeController : UIViewController
 
 @end
-
