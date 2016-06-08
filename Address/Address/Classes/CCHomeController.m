@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"通讯录";
-    [self getAddress];
+    [self getOldAddress];
 }
 
 ///  在iOS9之前，有两个框架可以访问用户的通讯录
@@ -32,7 +32,22 @@
 
 //4.iOS9之后，用Contacts.framework ContactsUI.framework代替
 
--(void)getAddress{
+//5.用户授权状态有四种
+//kABAuthorizationStatusNotDetermined  用户未决定
+//kABAuthorizationStatusRestricted   iOS设备上的一些许可配置阻止程序与通讯录数据库进行交互
+//kABAuthorizationStatusDenied   用户明确拒绝
+//kABAuthorizationStatusAuthorized  用户已经授权
+
+
+#pragma mark - iOS9之前
+-(void)getOldAddress{
+    //1. 新建一个通讯录类
+    ABAddressBookRef *abRef = nil;
+    
+    //2. 判断是否版本在iOS76之后
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=6.0) {
+        
+    }
     
 }
 
